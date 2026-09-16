@@ -1,0 +1,1778 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction to Computer Vision</title>
+
+```
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.7;
+        margin: 0;
+        background: #f4f6f8;
+        color: #222;
+    }
+
+    header {
+        background: #1f2937;
+        color: white;
+        padding: 40px 20px;
+        text-align: center;
+    }
+
+    header h1 {
+        margin-bottom: 10px;
+        font-size: 38px;
+    }
+
+    header p {
+        font-size: 18px;
+        color: #d1d5db;
+    }
+
+    main {
+        max-width: 1100px;
+        margin: 30px auto;
+        padding: 0 20px;
+    }
+
+    section {
+        background: white;
+        padding: 30px;
+        margin-bottom: 25px;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+        color: #1d4ed8;
+        border-bottom: 2px solid #e5e7eb;
+        padding-bottom: 8px;
+    }
+
+    h3 {
+        color: #374151;
+    }
+
+    .definition {
+        background: #eff6ff;
+        border-left: 5px solid #2563eb;
+        padding: 18px;
+        margin: 20px 0;
+    }
+
+    .example {
+        background: #f0fdf4;
+        border-left: 5px solid #16a34a;
+        padding: 18px;
+        margin: 20px 0;
+    }
+
+    .warning {
+        background: #fff7ed;
+        border-left: 5px solid #f97316;
+        padding: 18px;
+        margin: 20px 0;
+    }
+
+    .flow {
+        background: #111827;
+        color: #f9fafb;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        font-family: monospace;
+        white-space: pre-wrap;
+        margin: 20px 0;
+    }
+
+    code {
+        background: #f3f4f6;
+        padding: 3px 6px;
+        border-radius: 4px;
+    }
+
+    pre {
+        background: #111827;
+        color: #f9fafb;
+        padding: 20px;
+        border-radius: 8px;
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+    }
+
+    th, td {
+        border: 1px solid #d1d5db;
+        padding: 12px;
+        text-align: left;
+    }
+
+    th {
+        background: #e5e7eb;
+    }
+
+    ul, ol {
+        padding-left: 25px;
+    }
+
+    .roadmap {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-top: 20px;
+    }
+
+    .roadmap div {
+        background: #eff6ff;
+        border: 1px solid #bfdbfe;
+        padding: 15px;
+        border-radius: 8px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    footer {
+        background: #1f2937;
+        color: white;
+        text-align: center;
+        padding: 25px;
+        margin-top: 40px;
+    }
+</style>
+```
+
+</head>
+
+<body>
+
+<header>
+    <h1>Introduction to Computer Vision</h1>
+    <p>Complete Beginner-to-Intermediate Lecture Notes</p>
+</header>
+
+<main>
+
+<!-- 1 -->
+
+<section>
+    <h2>1. What is Computer Vision?</h2>
+
+```
+<div class="definition">
+    <strong>Computer Vision (CV)</strong> is a branch of Artificial Intelligence
+    that enables computers to understand, analyze, and interpret visual information
+    such as images, videos, and camera streams.
+</div>
+
+<p>
+    Humans use their eyes and brain to understand the world around them.
+    Computer vision attempts to provide computers with a similar ability by
+    processing visual data using mathematics, image processing, machine learning,
+    and deep learning.
+</p>
+
+<div class="flow">
+```
+
+Human Vision
+
+Eyes → Visual Information → Brain → Understanding
+
+Computer Vision
+
+Camera → Image/Video → Computer Vision Algorithm → Understanding </div>
+
+```
+<p>
+    A computer does not see an image in the same way that a human does.
+    It receives an image as numerical data represented by pixels.
+</p>
+```
+
+</section>
+
+<!-- 2 -->
+
+<section>
+    <h2>2. How Does a Computer See an Image?</h2>
+
+```
+<p>
+    A digital image is composed of small elements called <strong>pixels</strong>.
+    Each pixel contains numerical information representing the intensity or color
+    at a particular location.
+</p>
+
+<h3>Grayscale Image</h3>
+
+<p>
+    A grayscale image normally contains intensity values from 0 to 255.
+</p>
+
+<ul>
+    <li><strong>0</strong> = Black</li>
+    <li><strong>255</strong> = White</li>
+    <li>Values between 0 and 255 = Shades of gray</li>
+</ul>
+
+<pre>
+```
+
+10   20   30   40
+20   50   80   60
+30   90  120   70
+40   70  100   50 </pre>
+
+```
+<h3>Color Image</h3>
+
+<p>
+    A common color representation is RGB.
+</p>
+
+<ul>
+    <li>R = Red</li>
+    <li>G = Green</li>
+    <li>B = Blue</li>
+</ul>
+
+<div class="flow">
+```
+
+RGB Image
+
+Height × Width × 3
+
+Example:
+
+640 × 480 × 3 </div>
+
+</section>
+
+<!-- 3 -->
+
+<section>
+    <h2>3. Image as a Matrix</h2>
+
+```
+<p>
+    Computer vision uses mathematics extensively. Images can be represented as
+    matrices or multidimensional arrays.
+</p>
+
+<pre>
+    Width
+ ┌─────────────┐
+ │ 10  20  30  │
+ │ 20  50  80  │
+ │ 30  90 120  │
+ └─────────────┘
+    Height
+</pre>
+
+<p>
+    A grayscale image can be represented using a 2D matrix.
+    An RGB image can be represented using a 3D array.
+</p>
+
+<div class="example">
+    <strong>Example:</strong>
+    Python libraries such as NumPy represent images as arrays.
+    This makes mathematical operations on images efficient.
+</div>
+```
+
+</section>
+
+<!-- 4 -->
+
+<section>
+    <h2>4. Computer Vision Pipeline</h2>
+
+```
+<p>
+    A typical computer vision project follows several stages.
+</p>
+
+<div class="flow">
+```
+
+Problem Definition
+↓
+Dataset Collection
+↓
+Data Preprocessing
+↓
+Data Visualization
+↓
+Data Annotation
+↓
+Dataset Splitting
+↓
+Model Selection
+↓
+Model Training
+↓
+Model Evaluation
+↓
+Inference
+↓
+Deployment
+↓
+Monitoring </div>
+
+</section>
+
+<!-- 5 -->
+
+<section>
+    <h2>5. Dataset Collection</h2>
+
+```
+<p>
+    The first practical step in many computer vision projects is collecting
+    suitable images or videos.
+</p>
+
+<h3>Possible Data Sources</h3>
+
+<ul>
+    <li>Digital cameras</li>
+    <li>CCTV cameras</li>
+    <li>Drones</li>
+    <li>Mobile phones</li>
+    <li>Satellite imagery</li>
+    <li>Public datasets</li>
+    <li>Industrial cameras</li>
+    <li>Medical imaging devices</li>
+    <li>Robotic cameras</li>
+</ul>
+
+<h3>Example: Bolt Detection</h3>
+
+<p>
+    Suppose we want to develop an AI system that detects bolts.
+    We may collect thousands of images:
+</p>
+
+<pre>
+```
+
+bolt_001.jpg
+bolt_002.jpg
+bolt_003.jpg
+...
+bolt_5000.jpg </pre>
+
+```
+<p>
+    The dataset should represent real-world conditions.
+</p>
+
+<ul>
+    <li>Different lighting conditions</li>
+    <li>Different backgrounds</li>
+    <li>Different camera angles</li>
+    <li>Different object sizes</li>
+    <li>Different distances</li>
+    <li>Object rotation</li>
+    <li>Occlusion</li>
+    <li>Blur</li>
+    <li>Noise</li>
+</ul>
+```
+
+</section>
+
+<!-- 6 -->
+
+<section>
+    <h2>6. Data Preprocessing</h2>
+
+```
+<p>
+    Raw image data may not be suitable for direct use. Preprocessing prepares
+    the dataset for analysis and model training.
+</p>
+
+<h3>Common Preprocessing Operations</h3>
+
+<ul>
+    <li>Image resizing</li>
+    <li>Normalization</li>
+    <li>Noise reduction</li>
+    <li>Brightness adjustment</li>
+    <li>Contrast enhancement</li>
+    <li>Image sharpening</li>
+    <li>Color conversion</li>
+    <li>Cropping</li>
+</ul>
+
+<h3>Image Resizing</h3>
+
+<div class="flow">
+```
+
+1920 × 1080
+↓
+640 × 640 </div>
+
+```
+<h3>Normalization</h3>
+
+<p>
+    Pixel values commonly range from 0 to 255. They can be converted to the
+    range 0 to 1:
+</p>
+
+<pre>
+```
+
+normalized_pixel = pixel / 255 </pre>
+
+</section>
+
+<!-- 7 -->
+
+<section>
+    <h2>7. Data Visualization</h2>
+
+```
+<p>
+    Visualization helps us understand the dataset before training a model.
+</p>
+
+<h3>Questions Visualization Can Answer</h3>
+
+<ul>
+    <li>How many images are available?</li>
+    <li>How many classes exist?</li>
+    <li>Are some classes underrepresented?</li>
+    <li>Are images too dark or too bright?</li>
+    <li>Are there duplicate images?</li>
+    <li>Are annotations correct?</li>
+    <li>Are objects too small?</li>
+</ul>
+
+<div class="example">
+    <strong>Example:</strong>
+    If Class A has 5,000 images but Class C has only 800 images,
+    the dataset may suffer from class imbalance.
+</div>
+```
+
+</section>
+
+<!-- 8 -->
+
+<section>
+    <h2>8. Data Annotation</h2>
+
+```
+<p>
+    Supervised computer vision models usually require labeled training data.
+    The annotation format depends on the task.
+</p>
+
+<h3>Classification Annotation</h3>
+
+<pre>
+```
+
+Image → Cat
+Image → Dog
+Image → Car </pre>
+
+```
+<h3>Object Detection Annotation</h3>
+
+<p>
+    Objects are labeled using bounding boxes.
+</p>
+
+<pre>
+```
+
+Class
+x
+y
+width
+height </pre>
+
+```
+<h3>Segmentation Annotation</h3>
+
+<p>
+    Segmentation identifies the pixels belonging to an object.
+</p>
+```
+
+</section>
+
+<!-- 9 -->
+
+<section>
+    <h2>9. Main Computer Vision Tasks</h2>
+
+```
+<table>
+    <tr>
+        <th>Task</th>
+        <th>Purpose</th>
+        <th>Example</th>
+    </tr>
+
+    <tr>
+        <td>Classification</td>
+        <td>Identify the class of an image</td>
+        <td>Cat vs Dog</td>
+    </tr>
+
+    <tr>
+        <td>Object Detection</td>
+        <td>Identify and locate objects</td>
+        <td>Detect cars</td>
+    </tr>
+
+    <tr>
+        <td>Segmentation</td>
+        <td>Identify object pixels</td>
+        <td>Road segmentation</td>
+    </tr>
+
+    <tr>
+        <td>Tracking</td>
+        <td>Follow objects across frames</td>
+        <td>Vehicle tracking</td>
+    </tr>
+
+    <tr>
+        <td>OCR</td>
+        <td>Extract text from images</td>
+        <td>Invoice reading</td>
+    </tr>
+
+    <tr>
+        <td>Face Recognition</td>
+        <td>Identify faces</td>
+        <td>Identity verification</td>
+    </tr>
+</table>
+```
+
+</section>
+
+<!-- 10 -->
+
+<section>
+    <h2>10. Image Classification</h2>
+
+```
+<p>
+    Image classification determines what category an image belongs to.
+</p>
+
+<div class="flow">
+```
+
+Image
+↓
+Classification Model
+↓
+Prediction
+↓
+"Dog" </div>
+
+```
+<p>Applications include:</p>
+
+<ul>
+    <li>Animal classification</li>
+    <li>Product classification</li>
+    <li>Medical image classification</li>
+    <li>Defect classification</li>
+    <li>Satellite image classification</li>
+</ul>
+```
+
+</section>
+
+<!-- 11 -->
+
+<section>
+    <h2>11. Object Detection</h2>
+
+```
+<p>
+    Object detection identifies objects and determines their locations
+    inside an image.
+</p>
+
+<div class="flow">
+```
+
+Input Image
+↓
+Object Detection Model
+↓
+Object Class + Bounding Box + Confidence </div>
+
+```
+<h3>Popular Object Detection Models</h3>
+
+<ul>
+    <li>YOLO</li>
+    <li>Faster R-CNN</li>
+    <li>RetinaNet</li>
+    <li>SSD</li>
+</ul>
+
+<p>
+    YOLO is widely used for real-time object detection.
+</p>
+```
+
+</section>
+
+<!-- 12 -->
+
+<section>
+    <h2>12. Image Segmentation</h2>
+
+```
+<p>
+    Segmentation works at the pixel level.
+</p>
+
+<h3>Semantic Segmentation</h3>
+
+<p>
+    Each pixel is assigned to a class.
+</p>
+
+<pre>
+```
+
+Road
+Car
+Person
+Building
+Sky </pre>
+
+```
+<h3>Instance Segmentation</h3>
+
+<p>
+    Different objects belonging to the same class are separated.
+</p>
+
+<pre>
+```
+
+Person 1 → Mask 1
+Person 2 → Mask 2
+Person 3 → Mask 3 </pre>
+
+```
+<h3>Popular Segmentation Architectures</h3>
+
+<ul>
+    <li>U-Net</li>
+    <li>Mask R-CNN</li>
+    <li>YOLO Segmentation</li>
+    <li>DeepLab</li>
+</ul>
+```
+
+</section>
+
+<!-- 13 -->
+
+<section>
+    <h2>13. Object Tracking</h2>
+
+```
+<p>
+    Object tracking follows an object across multiple video frames.
+</p>
+
+<div class="flow">
+```
+
+Frame 1 → Car ID 1
+Frame 2 → Car ID 1
+Frame 3 → Car ID 1
+Frame 4 → Car ID 1 </div>
+
+```
+<p>Applications include:</p>
+
+<ul>
+    <li>Traffic monitoring</li>
+    <li>People counting</li>
+    <li>Sports analytics</li>
+    <li>Surveillance</li>
+    <li>Robotics</li>
+    <li>Drone tracking</li>
+</ul>
+```
+
+</section>
+
+<!-- 14 -->
+
+<section>
+    <h2>14. Face Detection and Recognition</h2>
+
+```
+<h3>Face Detection</h3>
+
+<p>
+    Face detection identifies the location of faces within an image.
+</p>
+
+<h3>Face Recognition</h3>
+
+<p>
+    Face recognition attempts to determine the identity associated with a face.
+</p>
+
+<div class="flow">
+```
+
+Image
+↓
+Face Detection
+↓
+Face Alignment
+↓
+Feature Extraction
+↓
+Face Embedding
+↓
+Similarity Comparison
+↓
+Identity </div>
+
+</section>
+
+<!-- 15 -->
+
+<section>
+    <h2>15. OCR — Optical Character Recognition</h2>
+
+```
+<p>
+    OCR converts text contained in images into machine-readable text.
+</p>
+
+<div class="example">
+    <strong>Example:</strong>
+    An invoice image containing "Invoice No: 12345"
+    can be processed to extract the same text digitally.
+</div>
+
+<h3>Applications</h3>
+
+<ul>
+    <li>Invoices</li>
+    <li>Receipts</li>
+    <li>Documents</li>
+    <li>Number plates</li>
+    <li>ID cards</li>
+    <li>Industrial labels</li>
+</ul>
+```
+
+</section>
+
+<!-- 16 -->
+
+<section>
+    <h2>16. Traditional Computer Vision</h2>
+
+```
+<p>
+    Before deep learning became dominant, computer vision systems relied heavily
+    on manually designed image-processing algorithms.
+</p>
+
+<h3>Important Techniques</h3>
+
+<ul>
+    <li>Edge Detection</li>
+    <li>Thresholding</li>
+    <li>Contours</li>
+    <li>Morphological Operations</li>
+    <li>HOG</li>
+    <li>SIFT</li>
+    <li>ORB</li>
+</ul>
+
+<h3>Edge Detection</h3>
+
+<p>
+    Edge detection identifies boundaries or sudden changes in image intensity.
+</p>
+
+<p>
+    One popular algorithm is <strong>Canny Edge Detection</strong>.
+</p>
+
+<h3>Thresholding</h3>
+
+<p>
+    Thresholding separates regions based on pixel intensity.
+</p>
+
+<div class="flow">
+```
+
+Grayscale Image
+↓
+Threshold
+↓
+Binary Image
+↓
+Black / White Regions </div>
+
+```
+<h3>Contours</h3>
+
+<p>
+    Contours represent object boundaries and are useful for shape analysis,
+    object measurement, and simple object detection.
+</p>
+```
+
+</section>
+
+<!-- 17 -->
+
+<section>
+    <h2>17. Deep Learning in Computer Vision</h2>
+
+```
+<p>
+    Modern computer vision heavily relies on deep learning.
+</p>
+
+<p>
+    One of the most important deep learning architectures for computer vision
+    is the <strong>Convolutional Neural Network (CNN)</strong>.
+</p>
+
+<div class="flow">
+```
+
+Input Image
+↓
+Convolution
+↓
+Feature Maps
+↓
+Activation
+↓
+Pooling
+↓
+More Convolution
+↓
+High-Level Features
+↓
+Prediction </div>
+
+</section>
+
+<!-- 18 -->
+
+<section>
+    <h2>18. Convolutional Neural Networks</h2>
+
+```
+<p>
+    CNNs learn visual features automatically from training data.
+</p>
+
+<h3>Early Layers</h3>
+
+<ul>
+    <li>Edges</li>
+    <li>Lines</li>
+    <li>Simple patterns</li>
+</ul>
+
+<h3>Middle Layers</h3>
+
+<ul>
+    <li>Shapes</li>
+    <li>Textures</li>
+    <li>Corners</li>
+</ul>
+
+<h3>Later Layers</h3>
+
+<ul>
+    <li>Faces</li>
+    <li>Wheels</li>
+    <li>Objects</li>
+    <li>Complex visual patterns</li>
+</ul>
+```
+
+</section>
+
+<!-- 19 -->
+
+<section>
+    <h2>19. What is Convolution?</h2>
+
+```
+<p>
+    Convolution uses a small matrix called a kernel or filter.
+    The filter moves across the image and performs mathematical operations.
+</p>
+
+<pre>
+```
+
+Example Kernel:
+
+1   0  -1
+1   0  -1
+1   0  -1 </pre>
+
+```
+<p>
+    Different filters can detect different patterns such as vertical edges,
+    horizontal edges, corners, and textures.
+</p>
+
+<p>
+    In a CNN, these filters are learned automatically during training.
+</p>
+```
+
+</section>
+
+<!-- 20 -->
+
+<section>
+    <h2>20. Transfer Learning</h2>
+
+```
+<p>
+    Training a large computer vision model from scratch can require large
+    datasets and significant computational resources.
+</p>
+
+<p>
+    Transfer learning allows us to start with a model that has already learned
+    useful visual features.
+</p>
+
+<div class="flow">
+```
+
+Pretrained Model
+↓
+Learned Features
+↓
+Your Dataset
+↓
+Fine-Tuning
+↓
+Custom Vision Model </div>
+
+```
+<p>
+    Transfer learning is especially useful when your custom dataset is
+    relatively small.
+</p>
+```
+
+</section>
+
+<!-- 21 -->
+
+<section>
+    <h2>21. Data Augmentation</h2>
+
+```
+<p>
+    Data augmentation creates modified versions of existing images.
+    This helps expose the model to different visual conditions.
+</p>
+
+<h3>Common Augmentations</h3>
+
+<ul>
+    <li>Rotation</li>
+    <li>Horizontal flipping</li>
+    <li>Vertical flipping</li>
+    <li>Cropping</li>
+    <li>Zooming</li>
+    <li>Brightness adjustment</li>
+    <li>Contrast adjustment</li>
+    <li>Blur</li>
+    <li>Noise</li>
+    <li>Perspective transformation</li>
+</ul>
+
+<div class="warning">
+    Augmentation should represent realistic variations that may occur
+    in the real application.
+</div>
+```
+
+</section>
+
+<!-- 22 -->
+
+<section>
+    <h2>22. Training, Validation, and Testing</h2>
+
+```
+<p>
+    A dataset is commonly divided into three parts.
+</p>
+
+<table>
+    <tr>
+        <th>Dataset</th>
+        <th>Purpose</th>
+    </tr>
+
+    <tr>
+        <td>Training</td>
+        <td>Used to train the model</td>
+    </tr>
+
+    <tr>
+        <td>Validation</td>
+        <td>Used during model development and tuning</td>
+    </tr>
+
+    <tr>
+        <td>Testing</td>
+        <td>Used for final evaluation on unseen data</td>
+    </tr>
+</table>
+
+<div class="example">
+    Example split:
+    <br><br>
+    70% Training<br>
+    20% Validation<br>
+    10% Testing
+</div>
+```
+
+</section>
+
+<!-- 23 -->
+
+<section>
+    <h2>23. Model Evaluation</h2>
+
+```
+<p>
+    After training, we need to determine how well the model performs.
+</p>
+
+<h3>Classification Metrics</h3>
+
+<ul>
+    <li>Accuracy</li>
+    <li>Precision</li>
+    <li>Recall</li>
+    <li>F1-score</li>
+    <li>Confusion Matrix</li>
+</ul>
+
+<h3>Object Detection Metrics</h3>
+
+<ul>
+    <li>Precision</li>
+    <li>Recall</li>
+    <li>IoU</li>
+    <li>mAP</li>
+</ul>
+
+<h3>Segmentation Metrics</h3>
+
+<ul>
+    <li>IoU</li>
+    <li>Dice Score</li>
+    <li>Pixel Accuracy</li>
+</ul>
+```
+
+</section>
+
+<!-- 24 -->
+
+<section>
+    <h2>24. Intersection over Union — IoU</h2>
+
+```
+<p>
+    IoU measures how much the predicted region overlaps with the ground-truth
+    region.
+</p>
+
+<pre>
+```
+
+IoU = Intersection Area / Union Area </pre>
+
+```
+<p>
+    A higher IoU generally indicates better overlap between prediction and
+    ground truth.
+</p>
+```
+
+</section>
+
+<!-- 25 -->
+
+<section>
+    <h2>25. Precision and Recall</h2>
+
+```
+<h3>Precision</h3>
+
+<p>
+    Precision answers:
+    <strong>Of everything predicted as positive, how much was actually positive?</strong>
+</p>
+
+<h3>Recall</h3>
+
+<p>
+    Recall answers:
+    <strong>Of everything that was actually positive, how much did the model find?</strong>
+</p>
+
+<div class="example">
+    In a defect detection system, high recall may be important because
+    missing a defective product could be costly.
+</div>
+```
+
+</section>
+
+<!-- 26 -->
+
+<section>
+    <h2>26. Computer Vision Inference</h2>
+
+```
+<p>
+    Inference is the process of using a trained model to make predictions
+    on new images or videos.
+</p>
+
+<div class="flow">
+```
+
+Camera
+↓
+Image
+↓
+Preprocessing
+↓
+Trained Model
+↓
+Inference
+↓
+Prediction </div>
+
+</section>
+
+<!-- 27 -->
+
+<section>
+    <h2>27. Real-Time Computer Vision</h2>
+
+```
+<p>
+    Real-time computer vision processes camera or video frames continuously.
+</p>
+
+<div class="flow">
+```
+
+Camera
+↓
+Frame 1 → Detection
+Frame 2 → Detection
+Frame 3 → Detection
+Frame 4 → Detection
+... </div>
+
+```
+<h3>FPS — Frames Per Second</h3>
+
+<p>
+    FPS indicates how many frames a system can process per second.
+</p>
+
+<ul>
+    <li>10 FPS</li>
+    <li>30 FPS</li>
+    <li>60 FPS</li>
+</ul>
+
+<p>
+    Higher FPS generally means faster processing, but latency, accuracy,
+    hardware capability, and model complexity must also be considered.
+</p>
+```
+
+</section>
+
+<!-- 28 -->
+
+<section>
+    <h2>28. Edge AI</h2>
+
+```
+<p>
+    Computer vision models can run directly on edge devices instead of
+    sending all data to a cloud server.
+</p>
+
+<h3>Examples of Edge Devices</h3>
+
+<ul>
+    <li>NVIDIA Jetson devices</li>
+    <li>Raspberry Pi</li>
+    <li>Industrial PCs</li>
+    <li>Smartphones</li>
+    <li>Embedded AI devices</li>
+</ul>
+
+<div class="flow">
+```
+
+Camera
+↓
+Edge Device
+↓
+AI Model
+↓
+Prediction
+↓
+Action </div>
+
+```
+<h3>Advantages</h3>
+
+<ul>
+    <li>Low latency</li>
+    <li>Offline operation</li>
+    <li>Reduced network dependency</li>
+    <li>Improved privacy</li>
+    <li>Real-time processing</li>
+</ul>
+```
+
+</section>
+
+<!-- 29 -->
+
+<section>
+    <h2>29. Computer Vision and Robotics</h2>
+
+```
+<p>
+    Computer vision provides robots with visual information about their
+    environment.
+</p>
+
+<div class="flow">
+```
+
+Camera
+↓
+Computer Vision
+↓
+Object Detection
+↓
+Position Estimation
+↓
+Robot Decision
+↓
+Motor Control </div>
+
+```
+<p>
+    A robot can use vision to identify objects, navigate environments,
+    avoid obstacles, and interact with objects.
+</p>
+
+<h3>Related Technologies</h3>
+
+<ul>
+    <li>ROS 2</li>
+    <li>SLAM</li>
+    <li>Robot Navigation</li>
+    <li>Manipulation</li>
+    <li>Object Detection</li>
+    <li>Object Tracking</li>
+</ul>
+```
+
+</section>
+
+<!-- 30 -->
+
+<section>
+    <h2>30. Computer Vision and Drones</h2>
+
+```
+<p>
+    Computer vision allows drones to understand objects and environments
+    from aerial imagery.
+</p>
+
+<h3>Applications</h3>
+
+<ul>
+    <li>Object detection</li>
+    <li>Vehicle detection</li>
+    <li>Person detection</li>
+    <li>Object tracking</li>
+    <li>Search and rescue</li>
+    <li>Agricultural monitoring</li>
+    <li>Infrastructure inspection</li>
+    <li>Mapping</li>
+</ul>
+
+<div class="flow">
+```
+
+Drone Camera
+↓
+Video Stream
+↓
+Computer Vision Model
+↓
+Object Detection
+↓
+Tracking
+↓
+Decision / Navigation </div>
+
+</section>
+
+<!-- 31 -->
+
+<section>
+    <h2>31. Industrial Computer Vision</h2>
+
+```
+<p>
+    Industrial computer vision is widely used for automated inspection
+    and quality control.
+</p>
+
+<div class="flow">
+```
+
+Production Line
+↓
+Industrial Camera
+↓
+Image Capture
+↓
+AI Model
+↓
+Defect Detection
+↓
+PLC / Robot / Alarm </div>
+
+```
+<h3>Examples of Industrial Applications</h3>
+
+<ul>
+    <li>Scratch detection</li>
+    <li>Missing component detection</li>
+    <li>Broken component detection</li>
+    <li>Incorrect assembly detection</li>
+    <li>PPE detection</li>
+    <li>Surface defect detection</li>
+    <li>Dimension inspection</li>
+    <li>Product classification</li>
+</ul>
+```
+
+</section>
+
+<!-- 32 -->
+
+<section>
+    <h2>32. Computer Vision Tools and Frameworks</h2>
+
+```
+<table>
+    <tr>
+        <th>Tool</th>
+        <th>Purpose</th>
+    </tr>
+
+    <tr>
+        <td>Python</td>
+        <td>Programming language</td>
+    </tr>
+
+    <tr>
+        <td>NumPy</td>
+        <td>Numerical and array operations</td>
+    </tr>
+
+    <tr>
+        <td>OpenCV</td>
+        <td>Image processing and computer vision</td>
+    </tr>
+
+    <tr>
+        <td>Pillow</td>
+        <td>Image loading and manipulation</td>
+    </tr>
+
+    <tr>
+        <td>Matplotlib</td>
+        <td>Visualization</td>
+    </tr>
+
+    <tr>
+        <td>PyTorch</td>
+        <td>Deep learning</td>
+    </tr>
+
+    <tr>
+        <td>TensorFlow</td>
+        <td>Deep learning</td>
+    </tr>
+
+    <tr>
+        <td>Ultralytics YOLO</td>
+        <td>Object detection and segmentation</td>
+    </tr>
+
+    <tr>
+        <td>scikit-image</td>
+        <td>Image processing</td>
+    </tr>
+</table>
+```
+
+</section>
+
+<!-- 33 -->
+
+<section>
+    <h2>33. Traditional Computer Vision vs Deep Learning</h2>
+
+```
+<table>
+    <tr>
+        <th>Traditional CV</th>
+        <th>Deep Learning CV</th>
+    </tr>
+
+    <tr>
+        <td>Hand-designed features</td>
+        <td>Features learned automatically</td>
+    </tr>
+
+    <tr>
+        <td>Edge detection</td>
+        <td>CNNs / Vision Transformers</td>
+    </tr>
+
+    <tr>
+        <td>Thresholding</td>
+        <td>Neural networks</td>
+    </tr>
+
+    <tr>
+        <td>Contours</td>
+        <td>YOLO / Faster R-CNN</td>
+    </tr>
+
+    <tr>
+        <td>HOG / SIFT / ORB</td>
+        <td>ResNet / EfficientNet / ViT</td>
+    </tr>
+
+    <tr>
+        <td>More manual engineering</td>
+        <td>More data and computation</td>
+    </tr>
+</table>
+```
+
+</section>
+
+<!-- 34 -->
+
+<section>
+    <h2>34. Complete Real-World Example: Bolt Detection</h2>
+
+```
+<p>
+    Consider an industrial system designed to automatically detect bolts.
+</p>
+
+<div class="flow">
+```
+
+Step 1: Collect Images
+↓
+Step 2: Preprocess Images
+↓
+Step 3: Visualize Dataset
+↓
+Step 4: Annotate Bolts
+↓
+Step 5: Split Dataset
+↓
+Step 6: Train YOLO Model
+↓
+Step 7: Validate Model
+↓
+Step 8: Evaluate mAP / Precision / Recall
+↓
+Step 9: Test on New Images
+↓
+Step 10: Deploy on Camera / Edge Device
+↓
+Step 11: Trigger Industrial Action </div>
+
+```
+<h3>Final System</h3>
+
+<div class="flow">
+```
+
+Industrial Camera
+↓
+Image / Video
+↓
+YOLO Model
+↓
+Bolt Detection
+↓
+Bounding Box
+↓
+Confidence Score
+↓
+Decision
+↓
+PLC / Robot / Alarm </div>
+
+</section>
+
+<!-- 35 -->
+
+<section>
+    <h2>35. Computer Vision Learning Roadmap</h2>
+
+```
+<div class="roadmap">
+    <div>Python</div>
+    <div>NumPy</div>
+    <div>Matplotlib</div>
+    <div>Image Basics</div>
+    <div>OpenCV</div>
+    <div>Image Processing</div>
+    <div>Dataset Collection</div>
+    <div>Preprocessing</div>
+    <div>Data Visualization</div>
+    <div>Annotation</div>
+    <div>Machine Learning</div>
+    <div>Deep Learning</div>
+    <div>CNN</div>
+    <div>Transfer Learning</div>
+    <div>Object Detection</div>
+    <div>YOLO</div>
+    <div>Segmentation</div>
+    <div>Tracking</div>
+    <div>Deployment</div>
+    <div>Edge AI</div>
+    <div>Robotics</div>
+    <div>Drones</div>
+</div>
+```
+
+</section>
+
+<!-- 36 -->
+
+<section>
+    <h2>36. Simple Mental Model</h2>
+
+```
+<div class="flow">
+```
+
+1. Collect Visual Data
+   ↓
+2. Prepare the Data
+   ↓
+3. Label the Data
+   ↓
+4. Train the Model
+   ↓
+5. Evaluate the Model
+   ↓
+6. Run Inference
+   ↓
+7. Deploy
+   ↓
+8. Monitor and Improve
+
+    </div>
+
+    <p>
+        This process forms the foundation of most practical computer vision
+        projects.
+    </p>
+
+</section>
+
+<!-- 37 -->
+
+<section>
+    <h2>37. Summary</h2>
+
+```
+<p>
+    Computer Vision is a field of Artificial Intelligence that enables
+    computers to process and understand images and videos.
+</p>
+
+<p>
+    A modern computer vision project normally involves:
+</p>
+
+<ol>
+    <li>Problem definition</li>
+    <li>Dataset collection</li>
+    <li>Data preprocessing</li>
+    <li>Data visualization</li>
+    <li>Data annotation</li>
+    <li>Dataset splitting</li>
+    <li>Model selection</li>
+    <li>Model training</li>
+    <li>Model evaluation</li>
+    <li>Inference</li>
+    <li>Deployment</li>
+    <li>Monitoring and improvement</li>
+</ol>
+
+<div class="definition">
+    <strong>Key Concept:</strong>
+    Computer Vision transforms visual data into useful information,
+    predictions, and decisions.
+</div>
+```
+
+</section>
+
+<!-- 38 -->
+
+<section>
+    <h2>38. Important Terms to Remember</h2>
+
+```
+<table>
+    <tr>
+        <th>Term</th>
+        <th>Meaning</th>
+    </tr>
+
+    <tr>
+        <td>Pixel</td>
+        <td>Smallest individual element of a digital image</td>
+    </tr>
+
+    <tr>
+        <td>RGB</td>
+        <td>Red, Green, Blue color representation</td>
+    </tr>
+
+    <tr>
+        <td>Grayscale</td>
+        <td>Image containing intensity values</td>
+    </tr>
+
+    <tr>
+        <td>Annotation</td>
+        <td>Labeling visual data</td>
+    </tr>
+
+    <tr>
+        <td>Bounding Box</td>
+        <td>Rectangle around a detected object</td>
+    </tr>
+
+    <tr>
+        <td>Segmentation</td>
+        <td>Pixel-level object identification</td>
+    </tr>
+
+    <tr>
+        <td>CNN</td>
+        <td>Convolutional Neural Network</td>
+    </tr>
+
+    <tr>
+        <td>Inference</td>
+        <td>Using a trained model to make predictions</td>
+    </tr>
+
+    <tr>
+        <td>IoU</td>
+        <td>Intersection over Union</td>
+    </tr>
+
+    <tr>
+        <td>mAP</td>
+        <td>Mean Average Precision</td>
+    </tr>
+
+    <tr>
+        <td>FPS</td>
+        <td>Frames Per Second</td>
+    </tr>
+
+    <tr>
+        <td>Edge AI</td>
+        <td>Running AI models directly on edge devices</td>
+    </tr>
+</table>
+```
+
+</section>
+
+</main>
+
+<footer>
+    <p>Computer Vision Learning Notes</p>
+    <p>From Image Processing to AI, Object Detection, Segmentation, Robotics and Edge AI</p>
+</footer>
+
+</body>
+</html>
